@@ -3,11 +3,9 @@ import { AppButton } from "../ui/app-button"
 import { AppText } from "../ui/app-text"
 import { AppBaseContainer } from "../ui/layouts/app-base-container"
 import { AppDynamicContainer } from "../ui/layouts/app-dynamic-container"
-import { Test } from "solver/types/test"
 
 
 export const Home = (): React.JSX.Element => {
-    Test()
 
     return (
         <AppDynamicContainer vertical pInline={8} pBlock={8} gap={32}>
