@@ -4,7 +4,11 @@ import { AppDynamicContainerLayout, AppDynamicContainerProps } from "./app-dynam
 
 interface AppPageContainerProps extends AppDynamicContainerProps { }
 export const AppPageContainerLayout = (props: AppPageContainerProps): ViewStyle => {
-    const dynProps = AppDynamicContainerLayout(props)
+    const dynProps = AppDynamicContainerLayout({
+        pInline: 8,
+        pBlock: 8,
+        ...props
+    })
     return {
         maxWidth: 500,
         marginInline: "auto",

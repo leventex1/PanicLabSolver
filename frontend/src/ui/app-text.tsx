@@ -4,7 +4,7 @@ import { AppTheme } from "../utils/styles"
 
 interface AppTextProps {
     children?: React.ReactNode
-    order?: 1 | 2 | 3 | 4,
+    order?: 0 | 1 | 2 | 3 | 4,
     weight?: 1 | 2 | 3,
     colorSwap?: boolean
 }
@@ -14,6 +14,7 @@ export const AppText: React.FunctionComponent<AppTextProps> = (props) => {
         props.order === 4 ? 96 :
         props.order === 3 ? 64 :
         props.order === 2 ? 32 :
+        props.order === 0 ? 16 :
         20
 
     const fontWeight =

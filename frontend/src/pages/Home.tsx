@@ -1,3 +1,4 @@
+import { useRouter } from "expo-router"
 import { ConfigList } from "../features/ConfigList"
 import { AppButton } from "../ui/app-button"
 import { AppText } from "../ui/app-text"
@@ -6,14 +7,15 @@ import { AppDynamicContainer } from "../ui/layouts/app-dynamic-container"
 
 
 export const Home = (): React.JSX.Element => {
+    const router = useRouter()
 
     return (
-        <AppDynamicContainer vertical pInline={8} pBlock={8} gap={32}>
+        <AppDynamicContainer vertical gap={32}>
             <AppBaseContainer flex justify="center" pTop={16}>
                 <AppText order={4} weight={3}>QQRiQ</AppText>
             </AppBaseContainer>
             <AppBaseContainer flex justify="center">
-                <AppButton>
+                <AppButton onClick={() => router.navigate("/new-config")}>
                     <AppText order={2} weight={2} colorSwap>New Config</AppText>
                 </AppButton>
             </AppBaseContainer>

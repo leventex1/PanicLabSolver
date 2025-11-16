@@ -5,7 +5,7 @@ class Resource {
     
     public constructor(private file: FileSystem.File) { }
 
-    public read = (): Object => {
+    public read = (): any => {
         return JSON.parse(this.file.textSync())
     }
 
@@ -22,9 +22,14 @@ export class Storage {
 
     private constructor() {
         this.directory = new FileSystem.Directory(FileSystem.Paths.document, "paniclab")
+        try {
+            this.directory.create()
+        } catch(error) {
+            console.error(error)
+        }
     }
 
-    public getInstance = (): Storage => {
+    public static getInstance = (): Storage => {
         if (!Storage.instance)
             Storage.instance = new Storage()
 
@@ -33,7 +38,11 @@ export class Storage {
 
     public createResource = (resourceName: string): Resource => {
         const file = new FileSystem.File(this.directory, `${resourceName}.txt`)
-        file.create()
+        try {
+            file.create()
+        } catch(error) {
+            console.error(error)
+        }
         return new Resource(file)
     }
 

@@ -6,7 +6,8 @@ export interface AppBaseContainerProps {
     children?: React.ReactNode
     flex?: boolean
     vertical?: boolean
-    justify?: "start" | "center" | "end"
+    reverseVertical?: boolean
+    justify?: "start" | "center" | "end" | "space-between"
     gap?: number
     grow?: boolean
     shrink?: boolean
@@ -20,13 +21,22 @@ export interface AppBaseContainerProps {
     fullHeight?: boolean
     color?: string
     borderRadius?: number
+    disableBackground?: boolean
     scrollable?: boolean
+    outlineColor?: string
 }
 export const AppBaseContainerLayout = (props: AppBaseContainerProps): ViewStyle => {
     const justifyContent = !props.justify ? undefined :
         props.justify === "center" ? "center" :
-        props.justify === "start" ? "flex-start" :
+        props.justify === "start" ? "flex-start" : 
+        props.justify === "space-between" ? "space-between" :
         "flex-end"
+
+    const outlineStyle: ViewStyle = !props.outlineColor ? { } : {
+        borderWidth: 4,
+        borderColor: props.outlineColor,
+        borderStyle: "solid"
+    }
 
     return {
         display: props.flex ? "flex" : undefined,
@@ -34,16 +44,17 @@ export const AppBaseContainerLayout = (props: AppBaseContainerProps): ViewStyle 
         justifyContent,
         gap: props.gap ?? undefined,
         flexShrink: props.shrink ? 1 : undefined,
-        flexDirection: props.vertical ? "column" : "row",
+        flexDirection: props.vertical ? "column" : props.reverseVertical ? "column-reverse" : "row",
         paddingInline: props.pInline ?? 0,
         paddingBlock: props.pBlock ?? 0,
         paddingTop: props.pTop ?? undefined,
         paddingBottom: props.pBottom ?? undefined,
         width: props.width ?? (props.fullWidth ? "100%" : undefined),
         height: props.height ?? (props.fullHeight ? "100%" : undefined),
-        backgroundColor: props.color ?? AppTheme.background,
+        backgroundColor: props.disableBackground ? undefined : props.color ?? AppTheme.background,
         borderRadius: props.borderRadius ?? 0,
-        overflow: props.scrollable ? "scroll" : "hidden"
+        overflow: props.scrollable ? "scroll" : "hidden",
+        ...outlineStyle
     }
 }
 

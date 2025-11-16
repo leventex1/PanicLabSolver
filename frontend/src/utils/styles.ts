@@ -9,6 +9,18 @@ interface AppStyle {
     borderRadius: number    // px
 }
 
+interface GameStyle {
+    redPrimary: string
+    redSecondary: string
+    bluePrimary: string
+    blueSecondary: string
+    background: string
+    dark: string
+    starterBlue: string
+    starterRed: string
+    starterYellow: string
+}
+
 
 export const AppTheme: AppStyle = {
     background: "#e7e7eeff",
@@ -20,3 +32,17 @@ export const AppTheme: AppStyle = {
     borderColor: "#3b3b3bff",
     borderRadius: 4
 }
+
+export const GameTheme: GameStyle = {
+    redPrimary: "#F1203C",
+    redSecondary: "#FD682C",
+    bluePrimary: "#6F0D8E",
+    blueSecondary: "#04A8BF",
+    background: "#60C654",
+    dark: "#373737",
+    starterBlue: "#0D5B5B",
+    starterRed: "#AF2D33",
+    starterYellow: "#E4A90C"
+}
+
+export const InputButtonHeights = 80
