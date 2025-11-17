@@ -39,6 +39,7 @@ export const AppBaseContainerLayout = (props: AppBaseContainerProps): ViewStyle 
     }
 
     return {
+        position: "relative",
         display: props.flex ? "flex" : undefined,
         flex: props.grow ? 1 : undefined,
         justifyContent,

@@ -7,6 +7,7 @@ interface AppTextProps {
     order?: 0 | 1 | 2 | 3 | 4,
     weight?: 1 | 2 | 3,
     colorSwap?: boolean
+    secondary?: boolean
 }
 export const AppText: React.FunctionComponent<AppTextProps> = (props) => {
 
@@ -27,7 +28,7 @@ export const AppText: React.FunctionComponent<AppTextProps> = (props) => {
             fontFamily: "chewy",
             fontSize,
             fontWeight,
-            color: props.colorSwap ? AppTheme.light : AppTheme.foreground,
+            color: props.colorSwap ? AppTheme.light : props.secondary ? AppTheme.secondary : AppTheme.foreground,
             alignSelf: "flex-start",
         }}>
             {props.children}

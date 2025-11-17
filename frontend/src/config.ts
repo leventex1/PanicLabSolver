@@ -47,10 +47,19 @@ export const createDeck = (config: DeckConfig): Array<Card> => {
 }
 
 
-export const getConfigs = (): Array<DeckConfig> => {
+const sanitizeRawConfig = (config: DeckConfig): DeckConfig => {
+    return {
+        date: new Date(config.date),
+        deck: config.deck
+    }
+}
+
+
+export const getConfigs = async (): Promise<Array<DeckConfig>> => {
     try {
         const resource = Storage.getInstance().createResource("configs")
-        const resourceObject: Array<DeckConfig> = resource.read()
+        let resourceObject: Array<DeckConfig> = (await resource.read()) ?? []
+        resourceObject = resourceObject.map(config => sanitizeRawConfig(config))
         return resourceObject
     } catch (error) {
         console.error(error)
@@ -60,12 +69,12 @@ export const getConfigs = (): Array<DeckConfig> => {
 }
 
 
-export const saveConfig = (config: DeckConfig) => {
+export const saveConfig = async (config: DeckConfig): Promise<void> => {
     try {
         const resource = Storage.getInstance().createResource("configs")
-        const resourceObject: Array<DeckConfig> = resource.read()
+        const resourceObject: Array<DeckConfig> = (await resource.read()) ?? []
         resourceObject.push(config)
-        resource.write(resourceObject)
+        await resource.write(resourceObject)
     } catch (error) {
         console.error(error)
     }

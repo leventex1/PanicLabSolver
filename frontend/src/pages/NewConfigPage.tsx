@@ -32,8 +32,9 @@ export const NewConfigPage: React.FunctionComponent = () => {
 
     const onSave = () => {
         const config = createConfig(cards)
-        saveConfig(config)
-        router.navigate("/")
+        saveConfig(config).then(() => {
+            router.navigate("/")
+        })
     }
 
     return (

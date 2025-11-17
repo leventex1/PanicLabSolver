@@ -1,16 +1,17 @@
-import * as FileSystem from "expo-file-system"
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 class Resource {
     
-    public constructor(private file: FileSystem.File) { }
+    public constructor(private name: string) { }
 
-    public read = (): any => {
-        return JSON.parse(this.file.textSync())
+    public read = async (): Promise<any> => {
+        const json = await AsyncStorage.getItem(this.name)
+        return json ? JSON.parse(json) : null
     }
 
-    public write = (obj: Object) => {
-        this.file.write(JSON.stringify(obj))
+    public write = async (obj: Object): Promise<void> => {
+        await AsyncStorage.setItem(this.name, JSON.stringify(obj))
     }
     
 }
@@ -18,16 +19,8 @@ class Resource {
 
 export class Storage {
     private static instance: Storage | null = null
-    private directory: FileSystem.Directory
 
-    private constructor() {
-        this.directory = new FileSystem.Directory(FileSystem.Paths.document, "paniclab")
-        try {
-            this.directory.create()
-        } catch(error) {
-            console.error(error)
-        }
-    }
+    private constructor() { }
 
     public static getInstance = (): Storage => {
         if (!Storage.instance)
@@ -37,13 +30,7 @@ export class Storage {
     }
 
     public createResource = (resourceName: string): Resource => {
-        const file = new FileSystem.File(this.directory, `${resourceName}.txt`)
-        try {
-            file.create()
-        } catch(error) {
-            console.error(error)
-        }
-        return new Resource(file)
+        return new Resource(resourceName)
     }
 
 }

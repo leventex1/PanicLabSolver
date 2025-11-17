@@ -1,5 +1,6 @@
 import { View, ViewStyle } from "react-native";
 import { AppBaseContainerLayout, AppBaseContainerProps } from "./app-base-container";
+import { forwardRef } from "react";
 
 
 export interface AppDynamicContainerProps extends AppBaseContainerProps { }
@@ -13,4 +14,12 @@ export const AppDynamicContainerLayout = (props: AppDynamicContainerProps): View
     })
 }
 
-export const AppDynamicContainer: React.FunctionComponent<AppDynamicContainerProps> = ({ children, ...props }) => <View style={AppDynamicContainerLayout(props)}>{children}</View>
+export const AppDynamicContainer = forwardRef<View, AppDynamicContainerProps>(
+    ({ children, ...props }, ref) => {
+        return (
+            <View ref={ref} style={AppDynamicContainerLayout(props)}>
+                {children}
+            </View>
+        );
+    }
+);
