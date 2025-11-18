@@ -13,10 +13,11 @@ const changerImages = [
 interface GameChangerCardProps {
     type: ChangerType
     scale?: number
+    size?: { width: number, height: number }
 }
-export const GameChangerCard: React.FunctionComponent<GameChangerCardProps> = ({ type, scale }) => {
+export const GameChangerCard: React.FunctionComponent<GameChangerCardProps> = ({ type, scale, size }) => {
 
     return (
-        <GameCard source={changerImages[type]} width={110} height={98} scale={scale} background={AppTheme.light} />
+        <GameCard source={changerImages[type]} width={100} height={120} scale={scale} background={AppTheme.light} size={size} />
     )
 }

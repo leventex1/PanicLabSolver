@@ -20,11 +20,12 @@ interface GameFigureCardProps {
     color: FigureColor
     texture: FigureTexture
     scale?: number
+    size?: { width: number, height: number }
 }
-export const GameFigureCard: React.FunctionComponent<GameFigureCardProps> = ({ type, color, texture, scale }) => {
+export const GameFigureCard: React.FunctionComponent<GameFigureCardProps> = ({ type, color, texture, scale, size }) => {
     const index = type * 4 + color * 2 + texture
 
     return (
-        <GameCard source={figureImages[index]} width={120} height={135} scale={scale} background={GameTheme.background} />
+        <GameCard source={figureImages[index]} width={100} height={120} scale={scale} background={GameTheme.background} size={size} />
     )
 }

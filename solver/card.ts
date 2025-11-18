@@ -11,6 +11,10 @@ export class Card {
     public get properties(): Array<number> {
         throw Error("Card.properties getter not implemented!")
     }
+
+    public isEqual(other: Card): boolean {
+        return this.properties.toString() === other.properties.toString()
+    }
 }
 
 

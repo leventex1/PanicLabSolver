@@ -27,14 +27,14 @@ export const ConfigFigureInput: React.FunctionComponent<ConfigFigureInputProps> 
                 <AppButton grow secondary outlineColor={figureType === FigureType.ONEEYED ? GameTheme.background : AppTheme.secondary} onClick={() => setFigureType(FigureType.ONEEYED)}>
                     <AppBaseContainer grow flex justify="center" disableBackground height={InputButtonHeights}>
                         <AppBaseContainer flex vertical justify="center" disableBackground>
-                            <Image source={require("../../assets/one-template.png")} style={{ width: 120 / 2, height: 135 / 2}} />
+                            <Image source={require("../../assets/one-template.png")} style={{ width: 100 / 2, height: 120 / 2}} />
                         </AppBaseContainer>
                     </AppBaseContainer>
                 </AppButton>
                 <AppButton grow secondary outlineColor={figureType === FigureType.TOWEYED ? GameTheme.background : AppTheme.secondary} onClick={() => setFigureType(FigureType.TOWEYED)}>
                     <AppBaseContainer grow flex justify="center" disableBackground height={InputButtonHeights}>
                         <AppBaseContainer flex vertical justify="center" disableBackground>
-                            <Image source={require("../../assets/two-template.png")} style={{ width: 120 / 2, height: 135 / 2}} />
+                            <Image source={require("../../assets/two-template.png")} style={{ width: 100 / 2, height: 120 / 2}} />
                         </AppBaseContainer>
                     </AppBaseContainer>
                 </AppButton>

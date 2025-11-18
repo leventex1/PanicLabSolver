@@ -33,3 +33,8 @@ export enum StarterType {
     RED,
     YELLOW
 }
+
+export enum StarterDirection {
+    BLACK,
+    WHITE
+}
