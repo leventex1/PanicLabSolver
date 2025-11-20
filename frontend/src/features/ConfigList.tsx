@@ -39,28 +39,30 @@ export const ConfigList: React.FunctionComponent = () => {
                     const label = `${d.getFullYear()}-${(d.getMonth() + 1) < 10 ? 0 : ""}${d.getMonth() + 1}-${d.getDate()} ${d.getHours() < 10 ? 0 : ""}${d.getHours()}:${d.getMinutes() < 10 ? 0 : ""}${d.getMinutes()}`
 
                     return (
-                        <TouchableOpacity key={configI} onPress={() => onSelect(cards)}>
-                            <AppBaseContainer flex vertical gap={4}>
-                                <AppText key={configI} order={0} secondary>{label}</AppText>
-                                <ScrollView horizontal={true} style={{ flexGrow: 0 }}>
-                                    <AppBaseContainer flex gap={4} height={InputButtonHeights}>
-                                        {cards.map((card, i) => {
-                                            const key = configI * 32 + i
+                        <>
+                            <AppText key={configI} order={0} secondary>{label}</AppText>
+                            <ScrollView horizontal={true} style={{ flexGrow: 0 }}>
+                                <TouchableOpacity key={configI} onPress={() => onSelect(cards)}>
+                                    <AppBaseContainer flex vertical gap={4}>
+                                            <AppBaseContainer flex gap={4} height={InputButtonHeights}>
+                                                {cards.toReversed().map((card, i) => {
+                                                    const key = configI * 32 + i
 
-                                            if (card.type === CardType.FIGURE)
-                                                return <GameFigureCard key={key} type={(card as FigureCard).figureType} color={(card as FigureCard).figureColor} texture={(card as FigureCard).figureTexture} scale={0.5} />
-                                            if (card.type === CardType.CHANGER)
-                                                return <GameChangerCard key={key} type={(card as ChangerCard).changerType} scale={0.5} />
-                                            if (card.type === CardType.STARTER)
-                                                return <GameStarterCard key={key} type={(card as StarterCard).starterType} scale={0.5} />
-                                            if (card.type === CardType.TRAPDOOR)
-                                                return <GameTrapdoorCard key={key} scale={0.5} />
-                                            return null
-                                        })}
+                                                    if (card.type === CardType.FIGURE)
+                                                        return <GameFigureCard key={key} type={(card as FigureCard).figureType} color={(card as FigureCard).figureColor} texture={(card as FigureCard).figureTexture} scale={0.5} />
+                                                    if (card.type === CardType.CHANGER)
+                                                        return <GameChangerCard key={key} type={(card as ChangerCard).changerType} scale={0.5} />
+                                                    if (card.type === CardType.STARTER)
+                                                        return <GameStarterCard key={key} type={(card as StarterCard).starterType} scale={0.5} />
+                                                    if (card.type === CardType.TRAPDOOR)
+                                                        return <GameTrapdoorCard key={key} scale={0.5} />
+                                                    return null
+                                                })}
+                                            </AppBaseContainer>
                                     </AppBaseContainer>
-                                </ScrollView>
-                            </AppBaseContainer>
-                        </TouchableOpacity>
+                                </TouchableOpacity>
+                            </ScrollView>
+                        </>
                     )
                 })}
             </AppDynamicContainer>

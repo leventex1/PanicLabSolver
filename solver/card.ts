@@ -13,7 +13,7 @@ export class Card {
     }
 
     public isEqual(other: Card): boolean {
-        return this.properties.toString() === other.properties.toString()
+        return this.cardType === other.cardType && this.properties.toString() === other.properties.toString()
     }
 }
 

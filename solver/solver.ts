@@ -8,6 +8,17 @@ export class InputNotFoundError extends Error {
     }
 }
 
+export class IterationTimeoutError extends Error {
+    public constructor(maxSteps: number) {
+        super(`Iteration timeout error, max steps reached: ${maxSteps}`)
+    }
+}
+
+export interface Solution {
+    card: Card,
+    index: number    
+}
+
 export class Solver {
 
     public constructor(private cards: Array<Card>) { }
@@ -19,27 +30,38 @@ export class Solver {
     public calculate = async (
         starterCard: Card,
         starterDirection: StarterDirection,
-        initialTargetCard: Card
-    ): Promise<{ card: Card, index: number }> => {
+        initialTargetCard: Card,
+        maxSteps: number
+    ): Promise<Solution> => {
+        let counter = 0;
         let targetCard = initialTargetCard
-        let cardPointer = this.cards.findIndex(card => card.properties.toString() === starterCard.properties.toString())
+        let cardPointer = this.cards.findIndex(card => card.isEqual(starterCard))
         const direction = starterDirection === StarterDirection.WHITE ? +1 : -1
 
         if (cardPointer === -1)
             throw new InputNotFoundError(starterCard)
 
         while (!this.cards[cardPointer].isEqual(targetCard)) {
-            cardPointer = (cardPointer + this.cards.length + direction) % this.cards.length
+            cardPointer = this.movePointer(cardPointer, direction)
 
             targetCard = this.mutate(this.cards[cardPointer] as ChangerCard, targetCard as FigureCard)
 
             if (this.cards[cardPointer].type === CardType.TRAPDOOR) {
                 cardPointer = this.findNext(cardPointer, direction, new TrapdoorCard())
-                cardPointer += direction
+                cardPointer = this.movePointer(cardPointer, direction)
             }
+
+            counter += 1
+            if (counter > maxSteps)
+                throw new IterationTimeoutError(maxSteps)
         }
 
         return { card: this.cards[cardPointer], index: cardPointer }
+    }
+
+
+    private movePointer = (pointer: number, direction: number) => {
+        return (pointer + this.cards.length + direction) % this.cards.length
     }
 
 
@@ -76,9 +98,9 @@ export class Solver {
 
 
     private findNext = (startPointer: number, direction: number, target: Card) => {
-        let index = startPointer + direction
+        let index = this.movePointer(startPointer, direction)
         while (!this.cards[index].isEqual(target))
-            index += direction
+            index = this.movePointer(index, direction)
 
         return index
     }

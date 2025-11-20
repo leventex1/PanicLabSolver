@@ -22,12 +22,12 @@ export const NewConfigPage: React.FunctionComponent = () => {
     const [currentInputType, setCurrentInputType] = useState<CardType | null>(null)
 
     const onNewCard = (card: Card) => {
-        setCards(prev => [card, ...prev])
+        setCards(prev => [...prev, card])
         setCurrentInputType(null)
     }
 
     const onPop = () => {
-        setCards(([_, ...others]) => others)
+        setCards((prev) => prev.slice(0, -1))
     }
 
     const onSave = () => {
@@ -44,7 +44,7 @@ export const NewConfigPage: React.FunctionComponent = () => {
                 <AppDynamicContainer vertical gap={8}>
                     <ScrollView horizontal={true} style={{ flexGrow: 0 }}>
                         <AppBaseContainer flex gap={4} height={InputButtonHeights}>
-                            {cards.map((card, i) => {
+                            {cards.toReversed().map((card, i) => {
                                 if (card.type === CardType.FIGURE)
                                     return <GameFigureCard key={i} type={(card as FigureCard).figureType} color={(card as FigureCard).figureColor} texture={(card as FigureCard).figureTexture} scale={0.5} />
                                 if (card.type === CardType.CHANGER)

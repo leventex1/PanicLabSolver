@@ -13,8 +13,9 @@ import { GameTrapdoorCard } from "./cards/GameTrapdoorCard"
 interface GameBoardCircleProps {
     cards: Array<Card>
     offset?: number
+    selectIndex?: number
 }
-export const GameBoardCircle: React.FunctionComponent<GameBoardCircleProps> = ({ cards, offset=0 }) => {
+export const GameBoardCircle: React.FunctionComponent<GameBoardCircleProps> = ({ cards, offset=0, selectIndex }) => {
     const [width, setWidth] = useState<number>(0)
     const [height, setHeight] = useState<number>(0)
 
@@ -43,8 +44,9 @@ export const GameBoardCircle: React.FunctionComponent<GameBoardCircleProps> = ({
                             width: cardWidth,
                             height: cardHeight,
                             backgroundColor: "red",
-                            transform: `translate(${width/2 - cardWidth/2}px, ${height/2 - cardHeight/2}px) rotate(${Math.floor(ratio * 360 + offset)}deg) translate(${r-cardHeight/2}px, 0) rotate(90deg)`,
+                            transform: `translate(${width/2 - cardWidth/2}px, ${height/2 - cardHeight/2}px) rotate(${Math.floor(ratio * 360 + 90 + offset)}deg) translate(${r-cardHeight/2}px, 0) rotate(90deg)`,
                             borderRadius: AppTheme.borderRadius,
+                            opacity: selectIndex ? (selectIndex === i ? 1 : 0.5) : 1
                         }}
                     >
                         {card.type === CardType.FIGURE && <GameFigureCard size={{ width: printWidth, height: pringHeight }} type={(card as FigureCard).figureType} color={(card as FigureCard).figureColor} texture={(card as FigureCard).figureTexture} /> }
