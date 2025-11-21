@@ -14,9 +14,12 @@ export const Home = (): React.JSX.Element => {
             <AppBaseContainer flex justify="center" pTop={16}>
                 <AppText order={4} weight={3}>QQRiQ</AppText>
             </AppBaseContainer>
-            <AppBaseContainer flex justify="center">
+            <AppBaseContainer flex justify="center" gap={8}>
                 <AppButton onClick={() => router.navigate("/new-config")}>
                     <AppText order={2} weight={2} colorSwap>New Config</AppText>
+                </AppButton>
+                <AppButton secondary onClick={() => router.navigate("/photo-config")}>
+                    <AppText order={2}>P++</AppText>
                 </AppButton>
             </AppBaseContainer>
             <AppDynamicContainer vertical gap={16}>

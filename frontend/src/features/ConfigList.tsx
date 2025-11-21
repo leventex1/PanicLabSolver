@@ -39,10 +39,10 @@ export const ConfigList: React.FunctionComponent = () => {
                     const label = `${d.getFullYear()}-${(d.getMonth() + 1) < 10 ? 0 : ""}${d.getMonth() + 1}-${d.getDate()} ${d.getHours() < 10 ? 0 : ""}${d.getHours()}:${d.getMinutes() < 10 ? 0 : ""}${d.getMinutes()}`
 
                     return (
-                        <>
-                            <AppText key={configI} order={0} secondary>{label}</AppText>
-                            <ScrollView horizontal={true} style={{ flexGrow: 0 }}>
-                                <TouchableOpacity key={configI} onPress={() => onSelect(cards)}>
+                        <AppBaseContainer flex vertical gap={8} key={configI}>
+                            <AppText key={configDecks.length + configI} order={0} secondary>{label}</AppText>
+                            <ScrollView key={configI} horizontal={true} style={{ flexGrow: 0 }}>
+                                <TouchableOpacity onPress={() => onSelect(cards)}>
                                     <AppBaseContainer flex vertical gap={4}>
                                             <AppBaseContainer flex gap={4} height={InputButtonHeights}>
                                                 {cards.toReversed().map((card, i) => {
@@ -62,7 +62,7 @@ export const ConfigList: React.FunctionComponent = () => {
                                     </AppBaseContainer>
                                 </TouchableOpacity>
                             </ScrollView>
-                        </>
+                        </AppBaseContainer>
                     )
                 })}
             </AppDynamicContainer>
