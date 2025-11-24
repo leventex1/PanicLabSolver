@@ -18,9 +18,6 @@ export const Home = (): React.JSX.Element => {
                 <AppButton onClick={() => router.navigate("/new-config")}>
                     <AppText order={2} weight={2} colorSwap>New Config</AppText>
                 </AppButton>
-                <AppButton secondary onClick={() => router.navigate("/photo-config")}>
-                    <AppText order={2}>P++</AppText>
-                </AppButton>
             </AppBaseContainer>
             <AppDynamicContainer vertical gap={16}>
                 <AppText>Previous Configs</AppText>
